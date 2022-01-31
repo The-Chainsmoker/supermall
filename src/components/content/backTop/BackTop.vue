@@ -5,7 +5,13 @@
 </template>
 
 <script>
-export default {}
+export default {
+  name: 'BackTop',
+  data() {
+    return {}
+  },
+  methods: {},
+}
 </script>
 
 <style scoped>

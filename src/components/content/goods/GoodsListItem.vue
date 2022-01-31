@@ -1,6 +1,8 @@
 <template>
-  <div class="goods-item">
-    <img :src="goodItem.show.img" alt="">
+  <div class="goods-item" @click="itemClick">
+    <!-- @load监听图片事件加载完成事件 -->
+    <!-- 使用vue-lazyload插件,v-lazy代替:src -->
+    <img v-lazy="showImage" alt="" @load="imageLoad">
     <div class="goods-info">
       <p>{{goodItem.title}}</p>
       <span class="price">{{goodItem.price}}</span>
@@ -11,12 +13,35 @@
 
 <script>
 export default {
+  name: 'GoodsListItem',
   props: {
     goodItem: {
       type: Object,
       default() {
         return {}
       },
+    },
+  },
+  computed: {
+    showImage() {
+      //判断传来是商品数据还是商品详情数据
+      return this.goodItem.image || this.goodItem.show.img //两个商品的属性层级不一样!!!
+    },
+  },
+  methods: {
+    imageLoad() {
+      //方法一(触发各自的自定义事件)
+      // if (this.$route.path.indexOf('/home') !== -1) {
+      //   this.$bus.$emit('itemImageLoad') //$bus定义Eventbus事件总线(监视每张图片刷新)
+      // } else {
+      //   this.$bus.$emit('detailImageLoad')
+      // }
+
+      //方法二(在各自页面的监听当前实例上的自定义事件完成后使用this.$bus.$off移除监听)
+      this.$bus.$emit('itemImageLoad') //$bus定义Eventbus事件总线(监视每张图片刷新)
+    },
+    itemClick() {
+      this.$router.push({ path: '/detail/' + this.goodItem.iid })
     },
   },
 }

@@ -7,6 +7,7 @@
 <script>
 import GoodsListItem from 'components/content/goods/GoodsListItem.vue'
 export default {
+  name: 'GoodsList',
   props: {
     cgoods: {
       type: Array,
@@ -26,3 +27,4 @@ export default {
   justify-content: space-around;
 }
 </style>
+

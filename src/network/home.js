@@ -16,3 +16,9 @@ export function getHomeGoods(type, page) {
     }
   })
 }
+
+export function getRecommend() {
+  return request({
+    url: '/recommend'
+  })
+}

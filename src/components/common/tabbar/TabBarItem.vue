@@ -20,6 +20,7 @@
 
 <script>
 export default {
+  name: 'TabBarItem',
   props: {
     path: {
       type: String,
